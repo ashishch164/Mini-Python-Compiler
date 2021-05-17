@@ -1,0 +1,26 @@
+ID equal int 
+ID equal int 
+ID equal ID plus ID plus int 
+ID equal int 
+ID equal int 
+ID equal ID mul ID 
+if special_start ID greaterthanequal ID special_end colon 
+indent ID equal ID plus ID 
+indent ID equal ID mul ID mul int 
+
+ID equal int 
+ID equal int 
+------------------------------PARSE SUCCESSFUL---------------------------
+
+------------------SYMBOL TABLE----------------
+----------------------------------------------
+LABEL	TYPE		VALUE	SCOPE	LINENO
+a	IDENTIFIER	19	local	8
+b	IDENTIFIER	9	global	2
+c	IDENTIFIER	119	global	3
+e	IDENTIFIER	10	global	4
+f	IDENTIFIER	8	global	5
+d	IDENTIFIER	80	global	6
+g	IDENTIFIER	8000	local	9
+u	IDENTIFIER	10	global	11
+j	IDENTIFIER	99	global	12
