@@ -24,10 +24,10 @@ python3 final.py
 ```
 
 ## Various folders
-1) **1-Token_And Symbol_Table:** This folder contains the code that outputs the tokens and the symbol table.
-2) **2-Abstract_Syntax_Tree:** This folder contains the code that displays the abstract syntax tree.
-3) **3-Intermediate_Code_Generation:** This folder contains the code that generates the symbol table before optimisations and the intermediate code.
-4) **4-Optimised_ICG:** This folder contains the code that generates the symbol table after optimisations, the quadruples table and the optimised intermediate code.
-5) **5-Target_Code:** This folder contains the code that displays the assembly code/target code.
-6) **Entire_Compiler:** This folder contains the code that generates the all the above outputs at once and displays it on the terminal.
+1) **Token_And Symbol_Table:** This folder contains the code that outputs the tokens and the symbol table.
+2) **Abstract_Syntax_Tree:** This folder contains the code that displays the abstract syntax tree.
+3) **Intermediate_Code_Generation:** This folder contains the code that generates the symbol table before optimisations and the intermediate code.
+4) **Optimised_ICG:** This folder contains the code that generates the symbol table after optimisations, the quadruples table and the optimised intermediate code.
+5) **Target_Code:** This folder contains the code that displays the assembly code/target code.
+
 
