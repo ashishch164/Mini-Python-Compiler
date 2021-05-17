@@ -1,0 +1,41 @@
+
+------------------SYMBOL TABLE before Optimisations----------------
+-------------------------------------------------------------------
+LABEL	TYPE		VALUE	SCOPE	LINENO
+a	identifier	9	local	8
+b	identifier	9	global	2
+t0	identifier	19	-	2
+t1	identifier	119	-	3
+c	identifier	119	global	3
+e	identifier	10	global	4
+f	identifier	8	global	5
+t2	identifier	80	-	6
+d	identifier	80	global	6
+t3	identifier	0	-	6
+t4	identifier	9	-	8
+t5	identifier	80	-	8
+t6	identifier	8000	-	9
+g	identifier	8000	local	9
+u	identifier	10	local	11
+j	identifier	99	local	12
+
+-------------ICG without optimisation-------------
+a=10
+b=9
+t0=a+b
+t1=t0+100
+c=t1
+e=10
+f=8
+t2=e*f
+d=t2
+l0 : t3=a>=b
+if not t3 goto l1
+t4=a+b
+a=t4
+t5=e*f
+t6=t5*100
+g=t6
+l1 : u=10
+j=99
+
