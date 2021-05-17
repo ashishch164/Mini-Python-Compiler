@@ -1,0 +1,63 @@
+
+------------------SYMBOL TABLE after Optimisations----------------
+------------------------------------------------------------------
+LABEL	TYPE		VALUE	SCOPE	LINENO
+a	identifier	19	local	8
+b	identifier	9	global	2
+t0	identifier	19	-	2
+t1	identifier	119	-	3
+c	identifier	119	global	3
+e	identifier	10	global	4
+f	identifier	8	global	5
+t2	identifier	80	-	5
+d	identifier	80	global	6
+t3	identifier	1	-	6
+t4	identifier	0	-	6
+t5	identifier	8000	-	8
+g	identifier	8000	local	9
+u	identifier	10	local	11
+j	identifier	99	local	12
+
+------------QUADRUPLES--------------
+	op	arg1	arg2	result
+	=	10		a
+	=	9		b
+	+	a	b	t0
+	+	t0	100	t1
+	=	t1		c
+	=	10		e
+	=	8		f
+	*	e	f	t2
+	=	t2		d
+	Label			l0
+	>=	a	b	t3
+	goto			l1
+	=	t0		a
+	*	t2	100	t5
+	=	t5		g
+	Label			l1
+	=	10		u
+	=	99		j
+
+
+-------------ICG with optimisations(Packing temporaries & Constant Propagation)-------------
+a = 10
+b = 9
+t0 = 10 + 9 
+t1 = 19 + 100 
+c = 119
+e = 10
+f = 8
+t2 = 10 * 8 
+d = 80
+l0:
+t3 = 10 >= 9 
+t4 = not 1
+if 0 goto l1
+a = 19
+t5 = 80 * 100 
+g = 8000
+l1:
+u = 10
+j = 99
+
