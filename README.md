@@ -7,7 +7,7 @@ This is our Compiler Design project for 6th semester.
 	       - Using Python Language for Target Code Generation.
 + **Team Members:**
    1) Ashish Kumar
-   2) Anmol yadav
+   2) Anmol Yadav
    
 + **Project Abstract:** The Mini-Compiler, contains all phases of compiler has been made for the language Python by using C language (till intermediate code optimisation phase) and we used Python language itself for target code generation as well . The constructs that have been focused on are ‘if-else’ and ‘while’ statements. The optimizations handled for the intermediate code are ‘packing temporaries’ and ‘constant propagation’. Syntax and semantic errors have been handled and syntax error recovery has been implemented using Panic Mode Recovery in the lexer.
 + **Code Execution:  **
@@ -20,7 +20,7 @@ a.exe
 ```
 2) The following commands execute the code in the '5-Target_Code' folder:
 ```
-python3 final.py
+python final.py
 ```
 
 ## Various folders
