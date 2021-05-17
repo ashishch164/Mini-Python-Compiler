@@ -1,0 +1,21 @@
+MOV R0, #10
+MOV R1, #9
+MOV R2, #119
+MOV R3, #8
+MOV R4, #80
+l0:
+MOV R5, #0
+BNEZ R5, l1
+MOV R6, #19
+MOV R7, #8000
+l1:
+MOV R8, #99
+ST b, R1
+ST c, R2
+ST e, R0
+ST f, R3
+ST d, R4
+ST a, R6
+ST g, R7
+ST u, R0
+ST j, R8

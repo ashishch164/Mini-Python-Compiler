@@ -1,0 +1,1465 @@
+Terminals unused in grammar
+
+   DIGITS
+   SPECIAL
+   SPACE
+   KEYWORD
+   SQUAREBRACKET_START
+   SQUAREBRACKET_END
+   MOD
+   RANGE
+   SINGLEQUOTE
+   DOUBLEQUOTE
+   EXPONENTIAL
+   LIST
+
+
+Grammar
+
+    0 $accept: P $end
+
+    1 P: S
+
+    2 S: Simple S
+    3  | Compound S
+    4  | /* empty */
+
+    5 IS: In Simple IS
+    6   | In Compound IS
+    7   | /* empty */
+
+    8 In: INDENT
+    9   | In INDENT
+
+   10 Simple: Assignment LB
+   11       | Print LB
+
+   12 Assignment: ID opassgn E1
+
+   13 opassgn: DIVIDEEQUAL
+   14        | MULEQUAL
+   15        | MINUSEQUAL
+   16        | EQUAL
+   17        | PLUSEQUAL
+
+   18 E1: E1 OP1 E2
+   19   | E2
+
+   20 E2: E2 OP2 E4
+   21   | E4
+
+   22 E4: INTEGER
+   23   | NUM
+   24   | ID
+   25   | SPECIAL_START E1 SPECIAL_END
+
+   26 OP1: PLUS
+   27    | MINUS
+
+   28 OP2: MUL
+   29    | DIVIDE
+
+   30 Compound: if_else LB
+   31         | only_if LB
+   32         | while_loop LB
+
+   33 only_if: IF condition COLON LB IND
+
+   34 $@1: /* empty */
+
+   35 if_else: IF condition COLON LB IND $@1 else_1
+
+   36 $@2: /* empty */
+
+   37 else_1: ELSE $@2 COLON LB IND
+
+   38 while_loop: WHILE condition COLON LB IND
+
+   39 condition: cond
+
+   40 cond: cond opor cond1
+   41     | cond1
+
+   42 cond1: cond1 opand cond2
+   43      | cond2
+
+   44 cond2: opnot cond2
+   45      | cond3
+
+   46 cond3: SPECIAL_START cond SPECIAL_END
+   47      | relexp
+   48      | bool
+
+   49 relexp: relexp relop E1
+   50       | ID
+   51       | NUM
+   52       | INTEGER
+
+   53 relop: comparison
+   54      | IN
+   55      | NOTIN
+
+   56 comparison: LESSTHAN
+   57           | LESSTHANEQUAL
+   58           | GREATERTHAN
+   59           | GREATERTHANEQUAL
+   60           | DOUBLEEQUAL
+   61           | NOTEQUAL
+
+   62 bool: T
+   63     | F
+
+   64 opor: OR
+
+   65 opand: AND
+
+   66 opnot: NOT
+
+   67 IND: IS
+
+   68 Print: PRINT SPECIAL_START toprint SPECIAL_END
+   69      | PRINT SPECIAL_START toprint SEP EQUAL STRING END EQUAL STRING SPECIAL_END
+   70      | PRINT SPECIAL_START toprint SEP EQUAL STRING SPECIAL_END
+   71      | PRINT SPECIAL_START toprint END EQUAL STRING SPECIAL_END
+
+   72 toprint: X
+   73        | X COMMA toprint
+
+   74 X: STRING
+   75  | ID
+   76  | NUM
+   77  | INTEGER
+
+   78 LB: NL
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+DIGITS (258)
+ID (259) 12 24 50 75
+PLUS (260) 26
+MINUS (261) 27
+MUL (262) 28
+DIVIDE (263) 29
+NUM (264) 23 51 76
+STRING (265) 69 70 71 74
+INTEGER (266) 22 52 77
+SPECIAL (267)
+NL (268) 78
+SPACE (269)
+KEYWORD (270)
+SPECIAL_START (271) 25 46 68 69 70 71
+SPECIAL_END (272) 25 46 68 69 70 71
+IF (273) 33 35
+ELSE (274) 37
+WHILE (275) 38
+SEP (276) 69 70
+END (277) 69 71
+OR (278) 64
+AND (279) 65
+NOT (280) 66
+IN (281) 54
+NOTIN (282) 55
+T (283) 62
+F (284) 63
+COLON (285) 33 35 37 38
+SQUAREBRACKET_START (286)
+SQUAREBRACKET_END (287)
+MOD (288)
+EQUAL (289) 16 69 70 71
+PLUSEQUAL (290) 17
+PRINT (291) 68 69 70 71
+RANGE (292)
+SINGLEQUOTE (293)
+DOUBLEQUOTE (294)
+EXPONENTIAL (295)
+COMMA (296) 73
+INDENT (297) 8 9
+LIST (298)
+DIVIDEEQUAL (299) 13
+MINUSEQUAL (300) 15
+MULEQUAL (301) 14
+LESSTHAN (302) 56
+LESSTHANEQUAL (303) 57
+GREATERTHAN (304) 58
+GREATERTHANEQUAL (305) 59
+DOUBLEEQUAL (306) 60
+NOTEQUAL (307) 61
+
+
+Nonterminals, with rules where they appear
+
+$accept (53)
+    on left: 0
+P (54)
+    on left: 1, on right: 0
+S (55)
+    on left: 2 3 4, on right: 1 2 3
+IS (56)
+    on left: 5 6 7, on right: 5 6 67
+In (57)
+    on left: 8 9, on right: 5 6 9
+Simple (58)
+    on left: 10 11, on right: 2 5
+Assignment (59)
+    on left: 12, on right: 10
+opassgn (60)
+    on left: 13 14 15 16 17, on right: 12
+E1 (61)
+    on left: 18 19, on right: 12 18 25 49
+E2 (62)
+    on left: 20 21, on right: 18 19 20
+E4 (63)
+    on left: 22 23 24 25, on right: 20 21
+OP1 (64)
+    on left: 26 27, on right: 18
+OP2 (65)
+    on left: 28 29, on right: 20
+Compound (66)
+    on left: 30 31 32, on right: 3 6
+only_if (67)
+    on left: 33, on right: 31
+if_else (68)
+    on left: 35, on right: 30
+$@1 (69)
+    on left: 34, on right: 35
+else_1 (70)
+    on left: 37, on right: 35
+$@2 (71)
+    on left: 36, on right: 37
+while_loop (72)
+    on left: 38, on right: 32
+condition (73)
+    on left: 39, on right: 33 35 38
+cond (74)
+    on left: 40 41, on right: 39 40 46
+cond1 (75)
+    on left: 42 43, on right: 40 41 42
+cond2 (76)
+    on left: 44 45, on right: 42 43 44
+cond3 (77)
+    on left: 46 47 48, on right: 45
+relexp (78)
+    on left: 49 50 51 52, on right: 47 49
+relop (79)
+    on left: 53 54 55, on right: 49
+comparison (80)
+    on left: 56 57 58 59 60 61, on right: 53
+bool (81)
+    on left: 62 63, on right: 48
+opor (82)
+    on left: 64, on right: 40
+opand (83)
+    on left: 65, on right: 42
+opnot (84)
+    on left: 66, on right: 44
+IND (85)
+    on left: 67, on right: 33 35 37 38
+Print (86)
+    on left: 68 69 70 71, on right: 11
+toprint (87)
+    on left: 72 73, on right: 68 69 70 71 73
+X (88)
+    on left: 74 75 76 77, on right: 72 73
+LB (89)
+    on left: 78, on right: 10 11 30 31 32 33 35 37 38
+
+
+State 0
+
+    0 $accept: . P $end
+
+    ID     shift, and go to state 1
+    IF     shift, and go to state 2
+    WHILE  shift, and go to state 3
+    PRINT  shift, and go to state 4
+
+    $default  reduce using rule 4 (S)
+
+    P           go to state 5
+    S           go to state 6
+    Simple      go to state 7
+    Assignment  go to state 8
+    Compound    go to state 9
+    only_if     go to state 10
+    if_else     go to state 11
+    while_loop  go to state 12
+    Print       go to state 13
+
+
+State 1
+
+   12 Assignment: ID . opassgn E1
+
+    EQUAL        shift, and go to state 14
+    PLUSEQUAL    shift, and go to state 15
+    DIVIDEEQUAL  shift, and go to state 16
+    MINUSEQUAL   shift, and go to state 17
+    MULEQUAL     shift, and go to state 18
+
+    opassgn  go to state 19
+
+
+State 2
+
+   33 only_if: IF . condition COLON LB IND
+   35 if_else: IF . condition COLON LB IND $@1 else_1
+
+    ID             shift, and go to state 20
+    NUM            shift, and go to state 21
+    INTEGER        shift, and go to state 22
+    SPECIAL_START  shift, and go to state 23
+    NOT            shift, and go to state 24
+    T              shift, and go to state 25
+    F              shift, and go to state 26
+
+    condition  go to state 27
+    cond       go to state 28
+    cond1      go to state 29
+    cond2      go to state 30
+    cond3      go to state 31
+    relexp     go to state 32
+    bool       go to state 33
+    opnot      go to state 34
+
+
+State 3
+
+   38 while_loop: WHILE . condition COLON LB IND
+
+    ID             shift, and go to state 20
+    NUM            shift, and go to state 21
+    INTEGER        shift, and go to state 22
+    SPECIAL_START  shift, and go to state 23
+    NOT            shift, and go to state 24
+    T              shift, and go to state 25
+    F              shift, and go to state 26
+
+    condition  go to state 35
+    cond       go to state 28
+    cond1      go to state 29
+    cond2      go to state 30
+    cond3      go to state 31
+    relexp     go to state 32
+    bool       go to state 33
+    opnot      go to state 34
+
+
+State 4
+
+   68 Print: PRINT . SPECIAL_START toprint SPECIAL_END
+   69      | PRINT . SPECIAL_START toprint SEP EQUAL STRING END EQUAL STRING SPECIAL_END
+   70      | PRINT . SPECIAL_START toprint SEP EQUAL STRING SPECIAL_END
+   71      | PRINT . SPECIAL_START toprint END EQUAL STRING SPECIAL_END
+
+    SPECIAL_START  shift, and go to state 36
+
+
+State 5
+
+    0 $accept: P . $end
+
+    $end  shift, and go to state 37
+
+
+State 6
+
+    1 P: S .
+
+    $default  reduce using rule 1 (P)
+
+
+State 7
+
+    2 S: Simple . S
+
+    ID     shift, and go to state 1
+    IF     shift, and go to state 2
+    WHILE  shift, and go to state 3
+    PRINT  shift, and go to state 4
+
+    $default  reduce using rule 4 (S)
+
+    S           go to state 38
+    Simple      go to state 7
+    Assignment  go to state 8
+    Compound    go to state 9
+    only_if     go to state 10
+    if_else     go to state 11
+    while_loop  go to state 12
+    Print       go to state 13
+
+
+State 8
+
+   10 Simple: Assignment . LB
+
+    NL  shift, and go to state 39
+
+    LB  go to state 40
+
+
+State 9
+
+    3 S: Compound . S
+
+    ID     shift, and go to state 1
+    IF     shift, and go to state 2
+    WHILE  shift, and go to state 3
+    PRINT  shift, and go to state 4
+
+    $default  reduce using rule 4 (S)
+
+    S           go to state 41
+    Simple      go to state 7
+    Assignment  go to state 8
+    Compound    go to state 9
+    only_if     go to state 10
+    if_else     go to state 11
+    while_loop  go to state 12
+    Print       go to state 13
+
+
+State 10
+
+   31 Compound: only_if . LB
+
+    NL  shift, and go to state 39
+
+    LB  go to state 42
+
+
+State 11
+
+   30 Compound: if_else . LB
+
+    NL  shift, and go to state 39
+
+    LB  go to state 43
+
+
+State 12
+
+   32 Compound: while_loop . LB
+
+    NL  shift, and go to state 39
+
+    LB  go to state 44
+
+
+State 13
+
+   11 Simple: Print . LB
+
+    NL  shift, and go to state 39
+
+    LB  go to state 45
+
+
+State 14
+
+   16 opassgn: EQUAL .
+
+    $default  reduce using rule 16 (opassgn)
+
+
+State 15
+
+   17 opassgn: PLUSEQUAL .
+
+    $default  reduce using rule 17 (opassgn)
+
+
+State 16
+
+   13 opassgn: DIVIDEEQUAL .
+
+    $default  reduce using rule 13 (opassgn)
+
+
+State 17
+
+   15 opassgn: MINUSEQUAL .
+
+    $default  reduce using rule 15 (opassgn)
+
+
+State 18
+
+   14 opassgn: MULEQUAL .
+
+    $default  reduce using rule 14 (opassgn)
+
+
+State 19
+
+   12 Assignment: ID opassgn . E1
+
+    ID             shift, and go to state 46
+    NUM            shift, and go to state 47
+    INTEGER        shift, and go to state 48
+    SPECIAL_START  shift, and go to state 49
+
+    E1  go to state 50
+    E2  go to state 51
+    E4  go to state 52
+
+
+State 20
+
+   50 relexp: ID .
+
+    $default  reduce using rule 50 (relexp)
+
+
+State 21
+
+   51 relexp: NUM .
+
+    $default  reduce using rule 51 (relexp)
+
+
+State 22
+
+   52 relexp: INTEGER .
+
+    $default  reduce using rule 52 (relexp)
+
+
+State 23
+
+   46 cond3: SPECIAL_START . cond SPECIAL_END
+
+    ID             shift, and go to state 20
+    NUM            shift, and go to state 21
+    INTEGER        shift, and go to state 22
+    SPECIAL_START  shift, and go to state 23
+    NOT            shift, and go to state 24
+    T              shift, and go to state 25
+    F              shift, and go to state 26
+
+    cond    go to state 53
+    cond1   go to state 29
+    cond2   go to state 30
+    cond3   go to state 31
+    relexp  go to state 32
+    bool    go to state 33
+    opnot   go to state 34
+
+
+State 24
+
+   66 opnot: NOT .
+
+    $default  reduce using rule 66 (opnot)
+
+
+State 25
+
+   62 bool: T .
+
+    $default  reduce using rule 62 (bool)
+
+
+State 26
+
+   63 bool: F .
+
+    $default  reduce using rule 63 (bool)
+
+
+State 27
+
+   33 only_if: IF condition . COLON LB IND
+   35 if_else: IF condition . COLON LB IND $@1 else_1
+
+    COLON  shift, and go to state 54
+
+
+State 28
+
+   39 condition: cond .
+   40 cond: cond . opor cond1
+
+    OR  shift, and go to state 55
+
+    $default  reduce using rule 39 (condition)
+
+    opor  go to state 56
+
+
+State 29
+
+   41 cond: cond1 .
+   42 cond1: cond1 . opand cond2
+
+    AND  shift, and go to state 57
+
+    $default  reduce using rule 41 (cond)
+
+    opand  go to state 58
+
+
+State 30
+
+   43 cond1: cond2 .
+
+    $default  reduce using rule 43 (cond1)
+
+
+State 31
+
+   45 cond2: cond3 .
+
+    $default  reduce using rule 45 (cond2)
+
+
+State 32
+
+   47 cond3: relexp .
+   49 relexp: relexp . relop E1
+
+    IN                shift, and go to state 59
+    NOTIN             shift, and go to state 60
+    LESSTHAN          shift, and go to state 61
+    LESSTHANEQUAL     shift, and go to state 62
+    GREATERTHAN       shift, and go to state 63
+    GREATERTHANEQUAL  shift, and go to state 64
+    DOUBLEEQUAL       shift, and go to state 65
+    NOTEQUAL          shift, and go to state 66
+
+    $default  reduce using rule 47 (cond3)
+
+    relop       go to state 67
+    comparison  go to state 68
+
+
+State 33
+
+   48 cond3: bool .
+
+    $default  reduce using rule 48 (cond3)
+
+
+State 34
+
+   44 cond2: opnot . cond2
+
+    ID             shift, and go to state 20
+    NUM            shift, and go to state 21
+    INTEGER        shift, and go to state 22
+    SPECIAL_START  shift, and go to state 23
+    NOT            shift, and go to state 24
+    T              shift, and go to state 25
+    F              shift, and go to state 26
+
+    cond2   go to state 69
+    cond3   go to state 31
+    relexp  go to state 32
+    bool    go to state 33
+    opnot   go to state 34
+
+
+State 35
+
+   38 while_loop: WHILE condition . COLON LB IND
+
+    COLON  shift, and go to state 70
+
+
+State 36
+
+   68 Print: PRINT SPECIAL_START . toprint SPECIAL_END
+   69      | PRINT SPECIAL_START . toprint SEP EQUAL STRING END EQUAL STRING SPECIAL_END
+   70      | PRINT SPECIAL_START . toprint SEP EQUAL STRING SPECIAL_END
+   71      | PRINT SPECIAL_START . toprint END EQUAL STRING SPECIAL_END
+
+    ID       shift, and go to state 71
+    NUM      shift, and go to state 72
+    STRING   shift, and go to state 73
+    INTEGER  shift, and go to state 74
+
+    toprint  go to state 75
+    X        go to state 76
+
+
+State 37
+
+    0 $accept: P $end .
+
+    $default  accept
+
+
+State 38
+
+    2 S: Simple S .
+
+    $default  reduce using rule 2 (S)
+
+
+State 39
+
+   78 LB: NL .
+
+    $default  reduce using rule 78 (LB)
+
+
+State 40
+
+   10 Simple: Assignment LB .
+
+    $default  reduce using rule 10 (Simple)
+
+
+State 41
+
+    3 S: Compound S .
+
+    $default  reduce using rule 3 (S)
+
+
+State 42
+
+   31 Compound: only_if LB .
+
+    $default  reduce using rule 31 (Compound)
+
+
+State 43
+
+   30 Compound: if_else LB .
+
+    $default  reduce using rule 30 (Compound)
+
+
+State 44
+
+   32 Compound: while_loop LB .
+
+    $default  reduce using rule 32 (Compound)
+
+
+State 45
+
+   11 Simple: Print LB .
+
+    $default  reduce using rule 11 (Simple)
+
+
+State 46
+
+   24 E4: ID .
+
+    $default  reduce using rule 24 (E4)
+
+
+State 47
+
+   23 E4: NUM .
+
+    $default  reduce using rule 23 (E4)
+
+
+State 48
+
+   22 E4: INTEGER .
+
+    $default  reduce using rule 22 (E4)
+
+
+State 49
+
+   25 E4: SPECIAL_START . E1 SPECIAL_END
+
+    ID             shift, and go to state 46
+    NUM            shift, and go to state 47
+    INTEGER        shift, and go to state 48
+    SPECIAL_START  shift, and go to state 49
+
+    E1  go to state 77
+    E2  go to state 51
+    E4  go to state 52
+
+
+State 50
+
+   12 Assignment: ID opassgn E1 .
+   18 E1: E1 . OP1 E2
+
+    PLUS   shift, and go to state 78
+    MINUS  shift, and go to state 79
+
+    $default  reduce using rule 12 (Assignment)
+
+    OP1  go to state 80
+
+
+State 51
+
+   19 E1: E2 .
+   20 E2: E2 . OP2 E4
+
+    MUL     shift, and go to state 81
+    DIVIDE  shift, and go to state 82
+
+    $default  reduce using rule 19 (E1)
+
+    OP2  go to state 83
+
+
+State 52
+
+   21 E2: E4 .
+
+    $default  reduce using rule 21 (E2)
+
+
+State 53
+
+   40 cond: cond . opor cond1
+   46 cond3: SPECIAL_START cond . SPECIAL_END
+
+    SPECIAL_END  shift, and go to state 84
+    OR           shift, and go to state 55
+
+    opor  go to state 56
+
+
+State 54
+
+   33 only_if: IF condition COLON . LB IND
+   35 if_else: IF condition COLON . LB IND $@1 else_1
+
+    NL  shift, and go to state 39
+
+    LB  go to state 85
+
+
+State 55
+
+   64 opor: OR .
+
+    $default  reduce using rule 64 (opor)
+
+
+State 56
+
+   40 cond: cond opor . cond1
+
+    ID             shift, and go to state 20
+    NUM            shift, and go to state 21
+    INTEGER        shift, and go to state 22
+    SPECIAL_START  shift, and go to state 23
+    NOT            shift, and go to state 24
+    T              shift, and go to state 25
+    F              shift, and go to state 26
+
+    cond1   go to state 86
+    cond2   go to state 30
+    cond3   go to state 31
+    relexp  go to state 32
+    bool    go to state 33
+    opnot   go to state 34
+
+
+State 57
+
+   65 opand: AND .
+
+    $default  reduce using rule 65 (opand)
+
+
+State 58
+
+   42 cond1: cond1 opand . cond2
+
+    ID             shift, and go to state 20
+    NUM            shift, and go to state 21
+    INTEGER        shift, and go to state 22
+    SPECIAL_START  shift, and go to state 23
+    NOT            shift, and go to state 24
+    T              shift, and go to state 25
+    F              shift, and go to state 26
+
+    cond2   go to state 87
+    cond3   go to state 31
+    relexp  go to state 32
+    bool    go to state 33
+    opnot   go to state 34
+
+
+State 59
+
+   54 relop: IN .
+
+    $default  reduce using rule 54 (relop)
+
+
+State 60
+
+   55 relop: NOTIN .
+
+    $default  reduce using rule 55 (relop)
+
+
+State 61
+
+   56 comparison: LESSTHAN .
+
+    $default  reduce using rule 56 (comparison)
+
+
+State 62
+
+   57 comparison: LESSTHANEQUAL .
+
+    $default  reduce using rule 57 (comparison)
+
+
+State 63
+
+   58 comparison: GREATERTHAN .
+
+    $default  reduce using rule 58 (comparison)
+
+
+State 64
+
+   59 comparison: GREATERTHANEQUAL .
+
+    $default  reduce using rule 59 (comparison)
+
+
+State 65
+
+   60 comparison: DOUBLEEQUAL .
+
+    $default  reduce using rule 60 (comparison)
+
+
+State 66
+
+   61 comparison: NOTEQUAL .
+
+    $default  reduce using rule 61 (comparison)
+
+
+State 67
+
+   49 relexp: relexp relop . E1
+
+    ID             shift, and go to state 46
+    NUM            shift, and go to state 47
+    INTEGER        shift, and go to state 48
+    SPECIAL_START  shift, and go to state 49
+
+    E1  go to state 88
+    E2  go to state 51
+    E4  go to state 52
+
+
+State 68
+
+   53 relop: comparison .
+
+    $default  reduce using rule 53 (relop)
+
+
+State 69
+
+   44 cond2: opnot cond2 .
+
+    $default  reduce using rule 44 (cond2)
+
+
+State 70
+
+   38 while_loop: WHILE condition COLON . LB IND
+
+    NL  shift, and go to state 39
+
+    LB  go to state 89
+
+
+State 71
+
+   75 X: ID .
+
+    $default  reduce using rule 75 (X)
+
+
+State 72
+
+   76 X: NUM .
+
+    $default  reduce using rule 76 (X)
+
+
+State 73
+
+   74 X: STRING .
+
+    $default  reduce using rule 74 (X)
+
+
+State 74
+
+   77 X: INTEGER .
+
+    $default  reduce using rule 77 (X)
+
+
+State 75
+
+   68 Print: PRINT SPECIAL_START toprint . SPECIAL_END
+   69      | PRINT SPECIAL_START toprint . SEP EQUAL STRING END EQUAL STRING SPECIAL_END
+   70      | PRINT SPECIAL_START toprint . SEP EQUAL STRING SPECIAL_END
+   71      | PRINT SPECIAL_START toprint . END EQUAL STRING SPECIAL_END
+
+    SPECIAL_END  shift, and go to state 90
+    SEP          shift, and go to state 91
+    END          shift, and go to state 92
+
+
+State 76
+
+   72 toprint: X .
+   73        | X . COMMA toprint
+
+    COMMA  shift, and go to state 93
+
+    $default  reduce using rule 72 (toprint)
+
+
+State 77
+
+   18 E1: E1 . OP1 E2
+   25 E4: SPECIAL_START E1 . SPECIAL_END
+
+    PLUS         shift, and go to state 78
+    MINUS        shift, and go to state 79
+    SPECIAL_END  shift, and go to state 94
+
+    OP1  go to state 80
+
+
+State 78
+
+   26 OP1: PLUS .
+
+    $default  reduce using rule 26 (OP1)
+
+
+State 79
+
+   27 OP1: MINUS .
+
+    $default  reduce using rule 27 (OP1)
+
+
+State 80
+
+   18 E1: E1 OP1 . E2
+
+    ID             shift, and go to state 46
+    NUM            shift, and go to state 47
+    INTEGER        shift, and go to state 48
+    SPECIAL_START  shift, and go to state 49
+
+    E2  go to state 95
+    E4  go to state 52
+
+
+State 81
+
+   28 OP2: MUL .
+
+    $default  reduce using rule 28 (OP2)
+
+
+State 82
+
+   29 OP2: DIVIDE .
+
+    $default  reduce using rule 29 (OP2)
+
+
+State 83
+
+   20 E2: E2 OP2 . E4
+
+    ID             shift, and go to state 46
+    NUM            shift, and go to state 47
+    INTEGER        shift, and go to state 48
+    SPECIAL_START  shift, and go to state 49
+
+    E4  go to state 96
+
+
+State 84
+
+   46 cond3: SPECIAL_START cond SPECIAL_END .
+
+    $default  reduce using rule 46 (cond3)
+
+
+State 85
+
+   33 only_if: IF condition COLON LB . IND
+   35 if_else: IF condition COLON LB . IND $@1 else_1
+
+    INDENT  shift, and go to state 97
+
+    $default  reduce using rule 7 (IS)
+
+    IS   go to state 98
+    In   go to state 99
+    IND  go to state 100
+
+
+State 86
+
+   40 cond: cond opor cond1 .
+   42 cond1: cond1 . opand cond2
+
+    AND  shift, and go to state 57
+
+    $default  reduce using rule 40 (cond)
+
+    opand  go to state 58
+
+
+State 87
+
+   42 cond1: cond1 opand cond2 .
+
+    $default  reduce using rule 42 (cond1)
+
+
+State 88
+
+   18 E1: E1 . OP1 E2
+   49 relexp: relexp relop E1 .
+
+    PLUS   shift, and go to state 78
+    MINUS  shift, and go to state 79
+
+    $default  reduce using rule 49 (relexp)
+
+    OP1  go to state 80
+
+
+State 89
+
+   38 while_loop: WHILE condition COLON LB . IND
+
+    INDENT  shift, and go to state 97
+
+    $default  reduce using rule 7 (IS)
+
+    IS   go to state 98
+    In   go to state 99
+    IND  go to state 101
+
+
+State 90
+
+   68 Print: PRINT SPECIAL_START toprint SPECIAL_END .
+
+    $default  reduce using rule 68 (Print)
+
+
+State 91
+
+   69 Print: PRINT SPECIAL_START toprint SEP . EQUAL STRING END EQUAL STRING SPECIAL_END
+   70      | PRINT SPECIAL_START toprint SEP . EQUAL STRING SPECIAL_END
+
+    EQUAL  shift, and go to state 102
+
+
+State 92
+
+   71 Print: PRINT SPECIAL_START toprint END . EQUAL STRING SPECIAL_END
+
+    EQUAL  shift, and go to state 103
+
+
+State 93
+
+   73 toprint: X COMMA . toprint
+
+    ID       shift, and go to state 71
+    NUM      shift, and go to state 72
+    STRING   shift, and go to state 73
+    INTEGER  shift, and go to state 74
+
+    toprint  go to state 104
+    X        go to state 76
+
+
+State 94
+
+   25 E4: SPECIAL_START E1 SPECIAL_END .
+
+    $default  reduce using rule 25 (E4)
+
+
+State 95
+
+   18 E1: E1 OP1 E2 .
+   20 E2: E2 . OP2 E4
+
+    MUL     shift, and go to state 81
+    DIVIDE  shift, and go to state 82
+
+    $default  reduce using rule 18 (E1)
+
+    OP2  go to state 83
+
+
+State 96
+
+   20 E2: E2 OP2 E4 .
+
+    $default  reduce using rule 20 (E2)
+
+
+State 97
+
+    8 In: INDENT .
+
+    $default  reduce using rule 8 (In)
+
+
+State 98
+
+   67 IND: IS .
+
+    $default  reduce using rule 67 (IND)
+
+
+State 99
+
+    5 IS: In . Simple IS
+    6   | In . Compound IS
+    9 In: In . INDENT
+
+    ID      shift, and go to state 1
+    IF      shift, and go to state 2
+    WHILE   shift, and go to state 3
+    PRINT   shift, and go to state 4
+    INDENT  shift, and go to state 105
+
+    Simple      go to state 106
+    Assignment  go to state 8
+    Compound    go to state 107
+    only_if     go to state 10
+    if_else     go to state 11
+    while_loop  go to state 12
+    Print       go to state 13
+
+
+State 100
+
+   33 only_if: IF condition COLON LB IND .
+   35 if_else: IF condition COLON LB IND . $@1 else_1
+
+    ELSE      reduce using rule 34 ($@1)
+    $default  reduce using rule 33 (only_if)
+
+    $@1  go to state 108
+
+
+State 101
+
+   38 while_loop: WHILE condition COLON LB IND .
+
+    $default  reduce using rule 38 (while_loop)
+
+
+State 102
+
+   69 Print: PRINT SPECIAL_START toprint SEP EQUAL . STRING END EQUAL STRING SPECIAL_END
+   70      | PRINT SPECIAL_START toprint SEP EQUAL . STRING SPECIAL_END
+
+    STRING  shift, and go to state 109
+
+
+State 103
+
+   71 Print: PRINT SPECIAL_START toprint END EQUAL . STRING SPECIAL_END
+
+    STRING  shift, and go to state 110
+
+
+State 104
+
+   73 toprint: X COMMA toprint .
+
+    $default  reduce using rule 73 (toprint)
+
+
+State 105
+
+    9 In: In INDENT .
+
+    $default  reduce using rule 9 (In)
+
+
+State 106
+
+    5 IS: In Simple . IS
+
+    INDENT  shift, and go to state 97
+
+    $default  reduce using rule 7 (IS)
+
+    IS  go to state 111
+    In  go to state 99
+
+
+State 107
+
+    6 IS: In Compound . IS
+
+    INDENT  shift, and go to state 97
+
+    $default  reduce using rule 7 (IS)
+
+    IS  go to state 112
+    In  go to state 99
+
+
+State 108
+
+   35 if_else: IF condition COLON LB IND $@1 . else_1
+
+    ELSE  shift, and go to state 113
+
+    else_1  go to state 114
+
+
+State 109
+
+   69 Print: PRINT SPECIAL_START toprint SEP EQUAL STRING . END EQUAL STRING SPECIAL_END
+   70      | PRINT SPECIAL_START toprint SEP EQUAL STRING . SPECIAL_END
+
+    SPECIAL_END  shift, and go to state 115
+    END          shift, and go to state 116
+
+
+State 110
+
+   71 Print: PRINT SPECIAL_START toprint END EQUAL STRING . SPECIAL_END
+
+    SPECIAL_END  shift, and go to state 117
+
+
+State 111
+
+    5 IS: In Simple IS .
+
+    $default  reduce using rule 5 (IS)
+
+
+State 112
+
+    6 IS: In Compound IS .
+
+    $default  reduce using rule 6 (IS)
+
+
+State 113
+
+   37 else_1: ELSE . $@2 COLON LB IND
+
+    $default  reduce using rule 36 ($@2)
+
+    $@2  go to state 118
+
+
+State 114
+
+   35 if_else: IF condition COLON LB IND $@1 else_1 .
+
+    $default  reduce using rule 35 (if_else)
+
+
+State 115
+
+   70 Print: PRINT SPECIAL_START toprint SEP EQUAL STRING SPECIAL_END .
+
+    $default  reduce using rule 70 (Print)
+
+
+State 116
+
+   69 Print: PRINT SPECIAL_START toprint SEP EQUAL STRING END . EQUAL STRING SPECIAL_END
+
+    EQUAL  shift, and go to state 119
+
+
+State 117
+
+   71 Print: PRINT SPECIAL_START toprint END EQUAL STRING SPECIAL_END .
+
+    $default  reduce using rule 71 (Print)
+
+
+State 118
+
+   37 else_1: ELSE $@2 . COLON LB IND
+
+    COLON  shift, and go to state 120
+
+
+State 119
+
+   69 Print: PRINT SPECIAL_START toprint SEP EQUAL STRING END EQUAL . STRING SPECIAL_END
+
+    STRING  shift, and go to state 121
+
+
+State 120
+
+   37 else_1: ELSE $@2 COLON . LB IND
+
+    NL  shift, and go to state 39
+
+    LB  go to state 122
+
+
+State 121
+
+   69 Print: PRINT SPECIAL_START toprint SEP EQUAL STRING END EQUAL STRING . SPECIAL_END
+
+    SPECIAL_END  shift, and go to state 123
+
+
+State 122
+
+   37 else_1: ELSE $@2 COLON LB . IND
+
+    INDENT  shift, and go to state 97
+
+    $default  reduce using rule 7 (IS)
+
+    IS   go to state 98
+    In   go to state 99
+    IND  go to state 124
+
+
+State 123
+
+   69 Print: PRINT SPECIAL_START toprint SEP EQUAL STRING END EQUAL STRING SPECIAL_END .
+
+    $default  reduce using rule 69 (Print)
+
+
+State 124
+
+   37 else_1: ELSE $@2 COLON LB IND .
+
+    $default  reduce using rule 37 (else_1)
