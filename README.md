@@ -2,8 +2,8 @@
 This is our Compiler Design project for 6th semester. 
 
 ## Details
-+ **Project Title:** Python Compiler (constructs: 'if-else', 'while') 
-	       - Using C language till Optimisation of Intermediate Code.
++ **Project Title:** Python Compiler (constructs: 'if-else', 'while')<br /> 
+	       - Using C language till Optimisation of Intermediate Code.<br />
 	       - Using Python Language for Target Code Generation.
 + **Team Members:**
    1) Ashish Kumar
