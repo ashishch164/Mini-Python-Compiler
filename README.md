@@ -10,7 +10,7 @@ This is our Compiler Design project for 6th semester.
    2) Anmol Yadav
    
 + **Project Abstract:** The Mini-Compiler, contains all phases of compiler has been made for the language Python by using C language (till intermediate code optimisation phase) and we used Python language itself for target code generation as well . The constructs that have been focused on are ‘if-else’ and ‘while’ statements. The optimizations handled for the intermediate code are ‘packing temporaries’ and ‘constant propagation’. Syntax and semantic errors have been handled and syntax error recovery has been implemented using Panic Mode Recovery in the lexer.
-+ **Code Execution:  **
++ **Code Execution :**
 1) The following commands can be used to execute the code in any of the folders except '5-Target_Code':
 ```
 lex proj.l
