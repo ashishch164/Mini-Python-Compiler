@@ -1,5 +1,6 @@
 # Mini-Python-Compiler
-This is our Compiler Design project for 6th semester. 
+This is our Compiler Design project for 6th semester. <br>
+Project Report: https://github.com/ashishch164/DTU-SE-Subjects-work/tree/main/Compiler%20Design
 
 ## Details
 + **Project Title:** Python Compiler (constructs: 'if-else', 'while')<br /> 
